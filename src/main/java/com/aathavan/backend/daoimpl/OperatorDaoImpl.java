@@ -23,7 +23,7 @@ public class OperatorDaoImpl implements OperatorDao {
 
 
     @Override
-    public ReturnStatus validateUserData(Map<String, Object> userData) throws Exception {
+    public ReturnStatus validateUserData(Map<String, Object> userData) {
         try {
             userData.replace("password", Secutity.encrypter(String.valueOf(userData.get("password"))));
 
