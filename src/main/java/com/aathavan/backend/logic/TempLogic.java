@@ -12,7 +12,7 @@ import java.net.http.HttpResponse;
 import java.util.Map;
 
 @Component
-public class OperatorLogic {
+public class TempLogic {
 
     private HttpClient httpClient;
     @Autowired
@@ -37,7 +37,7 @@ public class OperatorLogic {
 
     private String prepareWeatherApi(String city) {
         if (city == null)
-            city = "";
+            city = "erode";
         return "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=5978d7d6cb07f54a21025ff61bbe9aa1";
     }
 
