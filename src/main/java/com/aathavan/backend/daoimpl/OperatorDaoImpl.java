@@ -25,9 +25,7 @@ public class OperatorDaoImpl implements OperatorDao {
     @Override
     public ReturnStatus validateUserData(Map<String, Object> userData) {
         try {
-
             userData.replace("password", Secutity.encrypter(String.valueOf(userData.get("password"))));
-
             return new ReturnStatus(true, (Object) new NamedParameterJdbcTemplate(masterdb).queryForObject(
                     operatorQuery.validateUser(), userData, String.class));
         } catch (EmptyResultDataAccessException e) {
