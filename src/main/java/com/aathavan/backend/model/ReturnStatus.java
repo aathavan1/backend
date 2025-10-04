@@ -9,6 +9,7 @@ public class ReturnStatus {
     private boolean status = false;
     @Getter
     private String description;
+    private String errormsg;
 
     public ReturnStatus(boolean status) {
         this.status = status;
@@ -22,6 +23,12 @@ public class ReturnStatus {
     public ReturnStatus(boolean status, String description) {
         this.description = description;
         this.status = status;
+    }
+
+    public ReturnStatus(boolean status, String description, String errormsg) {
+        this.description = description;
+        this.status = status;
+        this.errormsg = errormsg;
     }
 
 

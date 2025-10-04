@@ -3,9 +3,11 @@ package com.aathavan.backend;
 import com.aathavan.backend.common.ApplicationConstant;
 import com.aathavan.backend.common.Secutity;
 import com.aathavan.backend.config.ConnectionConfig;
+import com.aathavan.backend.logic.TempLogic;
 import com.aathavan.backend.model.ServerCredentials;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.io.File;
@@ -18,10 +20,14 @@ import java.util.Map;
 @SpringBootApplication
 public class BackendApplication {
 
+    public static String str = "";
+
     public static void main(String[] args) {
         try {
             readServerFile();
-            SpringApplication.run(BackendApplication.class, args);
+            ApplicationContext context = SpringApplication.run(BackendApplication.class, args);
+
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

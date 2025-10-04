@@ -9,12 +9,12 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.Map;
 
-@Component
+@Repository
 public class OperatorDaoImpl implements OperatorDao {
     @Autowired
     private DataSource masterdb;
@@ -33,5 +33,21 @@ public class OperatorDaoImpl implements OperatorDao {
         } catch (IncorrectResultSizeDataAccessException e) {
             return new ReturnStatus(true, "Multiple Datas Found For this user and password");
         }
+    }
+
+    @Override
+    public ReturnStatus getOperDetails(String userid) throws Exception {
+        try {
+            return new ReturnStatus(true, new JdbcTemplate(masterdb).queryForObject(operatorQuery.getOperDetails(),
+                    new Object[]{userid}, Map.class));
+        } catch (EmptyResultDataAccessException e) {
+            return new ReturnStatus(false, "Invalid User ");
+        }
+    }
+
+    @Override
+    public ReturnStatus getUserDetails(Map<String, Object> userData) throws Exception {
+        return new ReturnStatus(true, new NamedParameterJdbcTemplate(masterdb)
+                .queryForList(operatorQuery.getUserDetails(), userData));
     }
 }
