@@ -38,12 +38,12 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+//    @Transactional(rollbackFor = Exception.class)
     public void setComputerTable(Map<String, Object> userData) throws Exception {
         userData.put("loginoperator", userData.get("opercode"));
         computerDao.updateComputerUser(userData);
         if (!commonDao.checkDataExist("computer", "ipaddress", String.valueOf(userData.get("ipaddress"))).isStatus()) {
-            userData.put("ipid", commonDao.getMaxNumber("computer", "ipid"));
+            userData.put("ipid", commonDao.getMaxNumber("computer", "ipid").getObjectdata());
             userData.put("createddate", ApplicationConstant.DateFormat.SAVEDATEFORMAT.format(LocalDate.now()));
             computerDao.insertComputerData(userData);
         }
@@ -53,6 +53,11 @@ public class LoginServiceImpl implements LoginService {
     public ReturnStatus getComputerTableData(Map<String, Object> userData) throws Exception {
         userData.put("loginoperator", userData.get("opercode"));
         return computerDao.getOperComputer(userData);
+    }
+
+    @Override
+    public void updateToken(Map<String, Object> userData) throws Exception {
+        operatorDao.updateToken(userData);
     }
 
 

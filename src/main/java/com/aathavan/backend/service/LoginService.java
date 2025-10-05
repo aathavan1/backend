@@ -16,4 +16,5 @@ public interface LoginService {
 
     ReturnStatus getComputerTableData(Map<String, Object> userData) throws Exception;
 
+    void updateToken(Map<String, Object> userData)throws Exception;
 }

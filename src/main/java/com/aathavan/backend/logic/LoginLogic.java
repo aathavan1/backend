@@ -24,7 +24,8 @@ public class LoginLogic {
             ReturnStatus status = loginService.validateUserData(userData);
             if (status.isStatus()) {
                 loginService.setComputerTable(userData);
-                generateToken.generateToken(String.valueOf(userData.get("opercode")));
+                userData.put("authtoken", generateToken.generateToken(String.valueOf(userData.get("opercode"))));
+                loginService.updateToken(userData);
             }
             return status;
         } catch (Exception e) {
@@ -46,6 +47,4 @@ public class LoginLogic {
             return new ReturnStatus(false, e.getMessage());
         }
     }
-
-
 }

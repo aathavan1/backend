@@ -7,7 +7,7 @@ public class OperatorQuery {
 
     public String validateUser() {
         StringBuilder sb = new StringBuilder();
-        sb.append("select opername from operator where opername = :opercode and password =:password \n");
+        sb.append("select opername from operator where opercode = :opercode and password =:password limit 1 \n");
 
         return sb.toString();
     }
@@ -24,6 +24,14 @@ public class OperatorQuery {
         sb.append("inner join (select opercode,username, email from employee) as em \n");
         sb.append(" where (username =:username OR email=:username ) \n");
         sb.append("  AND active = 'Y' \n");
+
+        return sb.toString();
+    }
+
+    public String updateToken() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("update operator set authtoken = :authtoken where \n");
+        sb.append("opercode =:opercode \n");
 
         return sb.toString();
     }

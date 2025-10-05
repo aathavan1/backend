@@ -21,7 +21,6 @@ public class OperatorDaoImpl implements OperatorDao {
     @Autowired
     private OperatorQuery operatorQuery;
 
-
     @Override
     public ReturnStatus validateUserData(Map<String, Object> userData) {
         try {
@@ -29,7 +28,7 @@ public class OperatorDaoImpl implements OperatorDao {
             return new ReturnStatus(true, (Object) new NamedParameterJdbcTemplate(masterdb).queryForObject(
                     operatorQuery.validateUser(), userData, String.class));
         } catch (EmptyResultDataAccessException e) {
-            return new ReturnStatus(true, "Invalid User Or Password");
+            return new ReturnStatus(false, "Invalid User Or Password");
         } catch (IncorrectResultSizeDataAccessException e) {
             return new ReturnStatus(true, "Multiple Datas Found For this user and password");
         }
@@ -49,5 +48,10 @@ public class OperatorDaoImpl implements OperatorDao {
     public ReturnStatus getUserDetails(Map<String, Object> userData) throws Exception {
         return new ReturnStatus(true, new NamedParameterJdbcTemplate(masterdb)
                 .queryForList(operatorQuery.getUserDetails(), userData));
+    }
+
+    @Override
+    public void updateToken(Map<String, Object> userData) throws Exception {
+        new NamedParameterJdbcTemplate(masterdb).update(operatorQuery.updateToken(), userData);
     }
 }

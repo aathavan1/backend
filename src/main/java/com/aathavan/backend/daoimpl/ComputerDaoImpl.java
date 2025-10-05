@@ -21,17 +21,17 @@ public class ComputerDaoImpl implements ComputerDao {
     private ComputerQuery computerQuery;
 
     @Override
-    public ReturnStatus getOperComputer(Map<String, Object> userData)  throws  Exception{
+    public ReturnStatus getOperComputer(Map<String, Object> userData) throws Exception {
         return new ReturnStatus(true, new NamedParameterJdbcTemplate(masterdb).queryForList(computerQuery.getOperComputer(), userData));
     }
 
     @Override
-    public void insertComputerData(Map<String, Object> userData) throws  Exception {
+    public void insertComputerData(Map<String, Object> userData) throws Exception {
         new NamedParameterJdbcTemplate(masterdb).update(computerQuery.insertComputer(), userData);
     }
 
     @Override
-    public void updateComputerUser(Map<String, Object> userData) throws  Exception {
+    public void updateComputerUser(Map<String, Object> userData) throws Exception {
         try {
             new NamedParameterJdbcTemplate(masterdb).update(computerQuery.updateComputerUser(), userData);
         } catch (Exception e) {

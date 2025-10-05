@@ -10,4 +10,6 @@ public interface OperatorDao {
     ReturnStatus getOperDetails(String userid) throws Exception;
 
     ReturnStatus getUserDetails(Map<String, Object> userData) throws Exception;
+
+    void updateToken(Map<String, Object> userData) throws Exception;
 }
