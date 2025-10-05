@@ -36,10 +36,14 @@ public class BackendApplication {
     private static void readServerFile() throws Exception {
 
         CodeSource classLoader = BackendApplication.class.getProtectionDomain().getCodeSource();
-
         File filePath = new File(classLoader.getLocation().getFile());
+        String fileLopcation = filePath.getParent().replace("file:\\", "");
+        fileLopcation = fileLopcation.replace("file:", "");
 
-        File file = new File(filePath.getParent() + "/" + "CompanyDetail.txt");
+        fileLopcation = fileLopcation.replace("nested:", "");
+        fileLopcation = fileLopcation.replace("%20", " ");
+
+        File file = new File(fileLopcation + File.separatorChar + "CompanyDetail.txt");
 
         if (!file.exists()) {
             throw new Exception("File not found...!");
