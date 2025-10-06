@@ -58,15 +58,15 @@ public class LoginServiceImpl implements LoginService {
     public ReturnStatus getComputerTableData(Map<String, Object> userData) throws Exception {
         List<Map<String, Object>> lstOperDetails = (List<Map<String, Object>>) computerDao.getOperComputer(userData).getObjectdata();
         if (lstOperDetails.isEmpty())
-            return new ReturnStatus(false);
+            return new ReturnStatus(false,"No User Found");
 
         LocalDateTime localDateTime = LocalDateTime.parse(String.valueOf(lstOperDetails.getFirst().get("tokenexpiry")));
-        if (localDateTime.isAfter(localDateTime.now())) {
-            return new ReturnStatus(false);
+        if (!localDateTime.isAfter(localDateTime.now())) {
+            return new ReturnStatus(false,"Session Experied");
         }
         ApplicationCommon.setLoginUser(userData);
 
-        return new ReturnStatus(true);
+        return new ReturnStatus(true,"LoginSucessfully");
     }
 
     @Override

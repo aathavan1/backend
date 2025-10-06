@@ -10,6 +10,7 @@ public class ComputerQuery {
         sb.append("select o.*,c.ipid from computer as c inner join  operator as o\n");
         sb.append("on c.loginoperator = o.opercode \n");
         sb.append("where ipaddress =:ipaddress and loginoperator <> 0 \n");
+        sb.append("and tokenexpiry is not null and authtoken is not null \n");
         return sb.toString();
     }
 
