@@ -13,7 +13,8 @@ public class TokenGeneration {
     private String securityKey = "AathavanDivya0907200413122003AathavanDivya0907200413122003";
 
     public String generateToken(String userId) throws Exception {
-        return Jwts.builder().setSubject(userId).issuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() + 10000))
+        return Jwts.builder().setSubject(userId).issuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() +
+                        (ApplicationConstant.getTokenExpiryTime() * 1000)))
                 .signWith(SignatureAlgorithm.HS256, securityKey).compact();
     }
 

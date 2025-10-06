@@ -17,7 +17,7 @@ public class LoginLogic {
     @Autowired
     private TokenGeneration generateToken;
 
-    public ReturnStatus validateUserData(Map<String, Object> userData) {
+    public ReturnStatus loginUser(Map<String, Object> userData) {
         try {
             userData.put("opercode", (((List<Map<String, Object>>) loginService.getUserData(userData).getObjectdata())
                     .getFirst().get("opercode")));
@@ -47,4 +47,14 @@ public class LoginLogic {
             return new ReturnStatus(false, e.getMessage());
         }
     }
+
+    public ReturnStatus checkLogin(Map<String, Object> map) {
+        try {
+            return loginService.getComputerTableData(map);
+        } catch (Exception e) {
+            return new ReturnStatus(false, e.getMessage());
+        }
+    }
+
+
 }

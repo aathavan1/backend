@@ -30,7 +30,7 @@ public class OperatorQuery {
 
     public String updateToken() {
         StringBuilder sb = new StringBuilder();
-        sb.append("update operator set authtoken = :authtoken where \n");
+        sb.append("update operator set authtoken = :authtoken, tokenexpiry =:tokenexpiry where \n");
         sb.append("opercode =:opercode \n");
 
         return sb.toString();
